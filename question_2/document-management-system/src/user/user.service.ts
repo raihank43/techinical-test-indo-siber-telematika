@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class UserService {
@@ -11,31 +12,12 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    if (!data.email) {
-      throw new BadRequestException({
-        status: 400,
-        message: 'Email is required',
-      });
-    }
-    if (!data.password) {
-      throw new BadRequestException({
-        status: 400,
-        message: 'Password is required',
-      });
-    }
-    if (!data.name) {
-      throw new BadRequestException({
-        status: 400,
-        message: 'Name is required',
-      });
-    }
-
-    const findUniqueUser = await this.prisma.user.findUnique({
+  async createUser(data: RegisterDto): Promise<User> {
+    const existingUser = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
 
-    if (findUniqueUser) {
+    if (existingUser) {
       throw new BadRequestException({
         status: 400,
         message: 'User with this email already exists',
