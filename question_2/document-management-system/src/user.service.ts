@@ -11,8 +11,21 @@ export class UserService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data,
-    });
+    try {
+      if (!data.email) {
+        throw new Error('Email is required');
+      }
+      const uniqueEmail = await this.prisma.user.findUnique({
+        where: { email: data.email },
+      });
+      if (uniqueEmail) {
+        throw new Error('Email already exists');
+      }
+      return this.prisma.user.create({
+        data,
+      });
+    } catch (error) {
+      return error;
+    }
   }
 }
