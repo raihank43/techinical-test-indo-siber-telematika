@@ -28,6 +28,10 @@ export class AppController {
   async signupUser(
     @Body() userData: { name: string; email: string; password: string },
   ): Promise<UserModel> {
-    return this.userService.createUser(userData);
+    try {
+      return this.userService.createUser(userData);
+    } catch (error) {
+      return error.message;
+    }
   }
 }
