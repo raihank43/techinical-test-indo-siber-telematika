@@ -9,12 +9,12 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "UserDocument" (
+CREATE TABLE "SharedDocument" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "documentId" INTEGER NOT NULL,
 
-    CONSTRAINT "UserDocument_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "SharedDocument_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -33,10 +33,10 @@ CREATE TABLE "Document" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "UserDocument" ADD CONSTRAINT "UserDocument_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SharedDocument" ADD CONSTRAINT "SharedDocument_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserDocument" ADD CONSTRAINT "UserDocument_documentId_fkey" FOREIGN KEY ("documentId") REFERENCES "Document"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SharedDocument" ADD CONSTRAINT "SharedDocument_documentId_fkey" FOREIGN KEY ("documentId") REFERENCES "Document"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Document" ADD CONSTRAINT "Document_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

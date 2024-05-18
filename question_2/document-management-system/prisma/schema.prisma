@@ -14,15 +14,15 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  email        String         @unique
-  name         String
-  password     String
-  documents    Document[]
-  UserDocument UserDocument[]
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  name           String
+  password       String
+  documents      Document[]
+  SharedDocument SharedDocument[]
 }
 
-model UserDocument {
+model SharedDocument {
   id         Int      @id @default(autoincrement())
   userId     Int
   documentId Int
@@ -31,12 +31,12 @@ model UserDocument {
 }
 
 model Document {
-  id           Int            @id @default(autoincrement())
-  title        String
-  documentUrl  String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  userId       Int
-  user         User           @relation(fields: [userId], references: [id])
-  UserDocument UserDocument[]
+  id             Int              @id @default(autoincrement())
+  title          String
+  documentUrl    String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  userId         Int
+  user           User             @relation(fields: [userId], references: [id])
+  SharedDocument SharedDocument[]
 }
