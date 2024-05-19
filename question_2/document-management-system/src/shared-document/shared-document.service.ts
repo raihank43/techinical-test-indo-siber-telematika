@@ -3,12 +3,14 @@ import { ILoginData } from 'src/interfaces/login.data';
 import { ShareDocumentDto } from './dto/share-document.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Document, SharedDocument } from '@prisma/client';
+import { ISharedDocument } from 'src/interfaces/shared-document.interface';
+
 
 @Injectable()
 export class SharedDocumentService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getUserSharedDocument(user: ILoginData): Promise<any> {
+  async getUserSharedDocument(user: ILoginData): Promise<ISharedDocument[]> {
     return this.prismaService.sharedDocument.findMany({
       where: { userId: user.id },
       include: {
