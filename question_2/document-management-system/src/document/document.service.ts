@@ -1,18 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import * as cloudinary from 'cloudinary';
 import * as mime from 'mime-types';
 import { PrismaService } from 'src/prisma.service';
+import { Document, Prisma } from '@prisma/client';
 
 @Injectable()
 export class DocumentService {
   constructor(private prisma: PrismaService) {}
 
-  async getAllDocuments(): Promise<any> {
-    return { message: 'All documents fetched successfully' };
+  async getUserDocuments(user): Promise<Document[]> {
+    const documents = await this.prisma.document.findMany({
+      where: {
+        userId: user.id,
+      },
+    });
+    return documents;
   }
 
   async uploadDocument(file: any, user: any): Promise<any> {
-    console.log(file, 'file');
+    if (!file) {
+      return new HttpException('No file uploaded', 400);
+    }
     const fileName = file.originalname;
     const mimeType = file.mimetype;
     const data = Buffer.from(file.buffer).toString('base64');

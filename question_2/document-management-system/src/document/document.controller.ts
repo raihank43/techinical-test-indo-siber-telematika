@@ -20,8 +20,8 @@ export class DocumentController {
 
   @UseGuards(JwtAuthGuard)
   @Get('document')
-  async getAllDocuments(): Promise<any> {
-    return this.documentService.getAllDocuments();
+  async getUserDocuments(@Request() req: any): Promise<any> {
+    return this.documentService.getUserDocuments(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
