@@ -3,12 +3,15 @@ import * as cloudinary from 'cloudinary';
 import * as mime from 'mime-types';
 import { PrismaService } from 'src/prisma.service';
 import { Document, Prisma } from '@prisma/client';
+import { ILoginData } from 'src/interfaces/login.data';
+import { IData } from 'src/interfaces/file.interface';
+import { IUploadResponse } from 'src/interfaces/uploadResponse.interface';
 
 @Injectable()
 export class DocumentService {
   constructor(private prisma: PrismaService) {}
 
-  async getUserDocuments(user): Promise<Document[]> {
+  async getUserDocuments(user: ILoginData): Promise<Document[]> {
     const documents = await this.prisma.document.findMany({
       where: {
         userId: user.id,
@@ -17,7 +20,10 @@ export class DocumentService {
     return documents;
   }
 
-  async uploadDocument(file: any, user: any): Promise<any> {
+  async uploadDocument(
+    file: IData,
+    user: ILoginData,
+  ): Promise<IUploadResponse | HttpException> {
     if (!file) {
       return new HttpException('No file uploaded', 400);
     }
