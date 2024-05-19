@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { RegisterDto } from './dto/register.dto';
+import { LoginUserDto } from './dto/login.dto';
 
 @Injectable()
 export class UserService {
@@ -34,5 +35,24 @@ export class UserService {
     return this.prisma.user.findUnique({
       where: { email },
     });
+  }
+
+  async findByLogin({ email, password }: LoginUserDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      throw new HttpException('Invalid credentials', 401);
+    }
+
+    const { password: pass, ...result } = user;
+    return result;
   }
 }

@@ -7,12 +7,14 @@ import {
   Put,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User as UserModel } from '@prisma/client';
 import { RegisterDto } from './dto/register.dto';
-import { AuthService } from '../auth/auth.service';
+import { AuthService, LoginResponse } from '../auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { LoginUserDto } from './dto/login.dto';
 
 @Controller()
 export class UserController {
@@ -23,22 +25,20 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('user')
-  async getAllUsers(): Promise<UserModel[]> {
+  async getAllUsers(@Request() req: any): Promise<UserModel[]> {
+    console.log(req.user, "<<<<<<"); // This will log the authenticated user's data
     return this.userService.getAllUsers();
   }
 
+  // Register a new user
   @Post('user')
   async signupUser(@Body() userData: RegisterDto): Promise<UserModel> {
-    try {
-      return this.userService.createUser(userData);
-    } catch (error) {
-      return error.message;
-    }
+    return this.userService.createUser(userData);
   }
 
-  // @UseGuards(LocalAuthGuard)
+  // Login a user and return a JWT
   @Post('auth/login')
-  async login(@Body() user: any) {
+  async login(@Body() user: LoginUserDto): Promise<LoginResponse> {
     return this.authService.login(user);
   }
 }
