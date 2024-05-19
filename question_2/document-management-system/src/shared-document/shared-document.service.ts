@@ -8,8 +8,23 @@ import { Document, SharedDocument } from '@prisma/client';
 export class SharedDocumentService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getSharedDocument(): Promise<string> {
-    return 'This is a shared document';
+  async getUserSharedDocument(user: ILoginData): Promise<any> {
+    return this.prismaService.sharedDocument.findMany({
+      where: { userId: user.id },
+      include: {
+        document: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                email: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async shareDocument(

@@ -18,8 +18,8 @@ export class SharedDocumentController {
   constructor(private readonly sharedDocumentService: SharedDocumentService) {}
 
   @Get('/shared-document')
-  async getUserSharedDocument(): Promise<string> {
-    return this.sharedDocumentService.getSharedDocument();
+  async getUserSharedDocument(@Request() req: any): Promise<any> {
+    return this.sharedDocumentService.getUserSharedDocument(req.user);
   }
 
   @Post('/share-document')
