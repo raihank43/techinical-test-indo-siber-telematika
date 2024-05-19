@@ -5,6 +5,7 @@ import {
   HttpException,
   Param,
   Post,
+  Query,
   Request,
   UploadedFile,
   UseGuards,
@@ -23,8 +24,11 @@ export class DocumentController {
 
   @UseGuards(JwtAuthGuard)
   @Get('document')
-  async getUserDocuments(@Request() req: any): Promise<Document[]> {
-    return this.documentService.getUserDocuments(req.user);
+  async getUserDocuments(
+    @Request() req: any,
+    @Query('orderBy') orderBy: 'asc' | 'desc',
+  ): Promise<Document[]> {
+    return this.documentService.getUserDocuments(req.user, orderBy);
   }
 
   @UseGuards(JwtAuthGuard)

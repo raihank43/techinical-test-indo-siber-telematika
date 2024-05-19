@@ -11,10 +11,19 @@ import { IUploadResponse } from 'src/interfaces/uploadResponse.interface';
 export class DocumentService {
   constructor(private prisma: PrismaService) {}
 
-  async getUserDocuments(user: ILoginData): Promise<Document[]> {
+  async getUserDocuments(
+    user: ILoginData,
+    orderBy: 'asc' | 'desc',
+  ): Promise<Document[]> {
+    if (!orderBy) {
+      orderBy = 'asc';
+    }
     const documents = await this.prisma.document.findMany({
       where: {
         userId: user.id,
+      },
+      orderBy: {
+        createdAt: orderBy,
       },
     });
     return documents;
