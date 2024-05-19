@@ -27,8 +27,9 @@ export class DocumentController {
   async getUserDocuments(
     @Request() req: any,
     @Query('orderBy') orderBy: 'asc' | 'desc',
+    @Query('sortBy') sortBy: 'title' | 'createdAt',
   ): Promise<Document[]> {
-    return this.documentService.getUserDocuments(req.user, orderBy);
+    return this.documentService.getUserDocuments(req.user, orderBy, sortBy);
   }
 
   @UseGuards(JwtAuthGuard)

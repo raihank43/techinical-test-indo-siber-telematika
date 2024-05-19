@@ -14,6 +14,7 @@ export class DocumentService {
   async getUserDocuments(
     user: ILoginData,
     orderBy: 'asc' | 'desc',
+    sortBy: 'title' | 'createdAt' = 'createdAt',
   ): Promise<Document[]> {
     if (!orderBy) {
       orderBy = 'asc';
@@ -23,7 +24,7 @@ export class DocumentService {
         userId: user.id,
       },
       orderBy: {
-        createdAt: orderBy,
+        [sortBy]: orderBy,
       },
     });
     return documents;
