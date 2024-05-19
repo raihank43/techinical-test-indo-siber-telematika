@@ -15,14 +15,15 @@ export class DocumentService {
     user: ILoginData,
     orderBy: 'asc' | 'desc',
     sortBy: 'title' | 'createdAt' = 'createdAt',
+    extension: string,
   ): Promise<Document[]> {
     if (!orderBy) {
       orderBy = 'asc';
     }
     const documents = await this.prisma.document.findMany({
-      where: {
-        userId: user.id,
-      },
+      where: extension
+        ? { userId: user.id, docType: extension }
+        : { userId: user.id },
       orderBy: {
         [sortBy]: orderBy,
       },

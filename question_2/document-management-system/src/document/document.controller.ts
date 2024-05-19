@@ -28,8 +28,14 @@ export class DocumentController {
     @Request() req: any,
     @Query('orderBy') orderBy: 'asc' | 'desc',
     @Query('sortBy') sortBy: 'title' | 'createdAt',
+    @Query('extension') extension: string,
   ): Promise<Document[]> {
-    return this.documentService.getUserDocuments(req.user, orderBy, sortBy);
+    return this.documentService.getUserDocuments(
+      req.user,
+      orderBy,
+      sortBy,
+      extension,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
