@@ -13,7 +13,7 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async createUser(data: RegisterDto): Promise<User> {
+  async createUser(data: RegisterDto): Promise<RegisterResponse> {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -23,12 +23,18 @@ export class UserService {
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    return this.prisma.user.create({
+    const { id, email, name } = await this.prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
       },
     });
+    return {
+      message: 'User successfully registered',
+      id,
+      email,
+      name,
+    };
   }
 
   async findOne(email: string): Promise<User | null> {
@@ -55,4 +61,8 @@ export class UserService {
     const { password: pass, ...result } = user;
     return result;
   }
+}
+
+export interface RegisterResponse extends Omit<User, 'password'> {
+  message: string;
 }

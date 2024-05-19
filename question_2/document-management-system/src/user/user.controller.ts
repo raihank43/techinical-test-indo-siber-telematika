@@ -9,7 +9,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { RegisterResponse, UserService } from './user.service';
 import { User as UserModel } from '@prisma/client';
 import { RegisterDto } from './dto/register.dto';
 import { AuthService, LoginResponse } from '../auth/auth.service';
@@ -26,13 +26,13 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('user')
   async getAllUsers(@Request() req: any): Promise<UserModel[]> {
-    console.log(req.user, "<<<<<<"); // This will log the authenticated user's data
+    console.log(req.user, '<<<<<<'); // This will log the authenticated user's data
     return this.userService.getAllUsers();
   }
 
   // Register a new user
   @Post('user')
-  async signupUser(@Body() userData: RegisterDto): Promise<UserModel> {
+  async signupUser(@Body() userData: RegisterDto): Promise<RegisterResponse> {
     return this.userService.createUser(userData);
   }
 
