@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
@@ -18,10 +18,7 @@ export class UserService {
     });
 
     if (existingUser) {
-      throw new BadRequestException({
-        status: 400,
-        message: 'User with this email already exists',
-      });
+      throw new HttpException('User with this email already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
