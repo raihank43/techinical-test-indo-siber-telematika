@@ -62,6 +62,7 @@ export class DocumentService {
         title: fileName,
         documentUrl: result.secure_url,
         userId: user.id,
+        docType: extensionName,
       },
     });
 
