@@ -18,11 +18,11 @@ import { DocumentService } from './document.service';
 import { Document } from '@prisma/client';
 import { IUploadResponse } from 'src/interfaces/uploadResponse.interface';
 
+@UseGuards(JwtAuthGuard)
 @Controller()
 export class DocumentController {
   constructor(private readonly documentService: DocumentService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('document')
   async getUserDocuments(
     @Request() req: any,
@@ -38,7 +38,6 @@ export class DocumentController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('document')
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async uploadDocument(
@@ -48,7 +47,6 @@ export class DocumentController {
     return this.documentService.uploadDocument(file, req.user);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('document/:id')
   async deleteDocument(
     @Request() req: any,
