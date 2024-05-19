@@ -1,7 +1,9 @@
 import {
   Controller,
+  Delete,
   Get,
   HttpException,
+  Param,
   Post,
   Request,
   UploadedFile,
@@ -22,7 +24,6 @@ export class DocumentController {
   @UseGuards(JwtAuthGuard)
   @Get('document')
   async getUserDocuments(@Request() req: any): Promise<Document[]> {
-    console.log(req.user, '<<<<<<');
     return this.documentService.getUserDocuments(req.user);
   }
 
@@ -34,5 +35,14 @@ export class DocumentController {
     @Request() req: any,
   ): Promise<IUploadResponse | HttpException> {
     return this.documentService.uploadDocument(file, req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('document/:id')
+  async deleteDocument(
+    @Request() req: any,
+    @Param('id') id: string,
+  ): Promise<{ message: string; document: Document }> {
+    return this.documentService.deleteDocument(Number(id), req.user);
   }
 }

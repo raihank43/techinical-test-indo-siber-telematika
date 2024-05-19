@@ -57,4 +57,40 @@ export class DocumentService {
 
     return { message: 'Document uploaded successfully', document };
   }
+
+  async deleteDocument(
+    documentId: number,
+    user: ILoginData,
+  ): Promise<{ message: string; document: Document }> {
+    const document = await this.prisma.document.findUnique({
+      where: {
+        id: documentId,
+      },
+    });
+
+    if (!document) {
+      throw new HttpException('Document not found', 404);
+    }
+
+    if (document.userId !== user.id) {
+      throw new HttpException('Unauthorized', 401);
+    }
+
+    // Delete the file from Cloudinary
+    // get the public_id from the documentUrl
+    const parts = document.documentUrl.split('/');
+    const publicId = `document-management-system/${
+      parts[parts.length - 1].split('.')[0]
+    }`;
+    await cloudinary.v2.uploader.destroy(publicId);
+
+    // Delete the document from the database
+    await this.prisma.document.delete({
+      where: {
+        id: documentId,
+      },
+    });
+
+    return { message: 'Document deleted successfully', document };
+  }
 }
