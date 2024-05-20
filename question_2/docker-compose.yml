@@ -1,0 +1,29 @@
+services:
+  app:
+    build: ./server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server:/server
+    depends_on:
+      - db
+    # command: /bin/sh -c "npx prisma migrate deploy && npm run start:dev"
+    environment:
+      SECRETKEY: "secretkey"
+      EXPIRESIN: "60m"
+      CLOUDINARY_URL: "[YOUR_CLOUDINARY_URL]"
+      DATABASE_URL: "postgres://postgres:postgres@db:5432/document-management-system"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: document-management-system
+    ports:
+      - 5433:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:

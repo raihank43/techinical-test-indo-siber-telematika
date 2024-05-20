@@ -15,7 +15,7 @@ export class AppController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/')
-  getHello(): string {
+  getHello(): any {
     return 'Hello World!';
   }
 }

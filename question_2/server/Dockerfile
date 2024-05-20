@@ -1,14 +1,16 @@
 FROM node
-FROM postgres
 
-WORKDIR /app
+WORKDIR /server
 
-COPY package.json /app/package.json
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install && npm cache clean --force
 
-COPY . /app
+## Install nodemon
+RUN npm install -g nodemon
 
-CMD ["npm", "start"]
+COPY ./ ./
 
+EXPOSE 3000
 
+CMD npx prisma migrate deploy && npm run start:dev
