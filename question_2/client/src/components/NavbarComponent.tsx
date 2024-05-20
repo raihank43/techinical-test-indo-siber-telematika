@@ -9,7 +9,7 @@ export default function NavbarComponent() {
     navigate("/login");
   };
   return (
-    <nav className="bg-slate-100 p-4 flex justify-between items-center shadow-xl rounded-b-2xl">
+    <nav className="bg-white p-4 flex justify-between items-center shadow-xl rounded-b-2xl">
       <img src="/logo.png" className="w-32 ml-5" alt="logo" />
       <div>
         <p className="font-bold italic"> Making Document Sharing a Breeze</p>
