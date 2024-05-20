@@ -18,12 +18,12 @@ export default function SortButton({
   return (
     <div className="flex items-center gap-3">
       <Select onValueChange={handleSort}>
-        <SelectTrigger className="w-[180px] bg-purple-600 text-white">
+        <SelectTrigger className="w-[180px] bg-yellow-600 text-white">
           <SelectValue placeholder="Sort By" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="asc">Ascending</SelectItem>
-          <SelectItem value="desc">Descending</SelectItem>
+          <SelectItem value="title">Name</SelectItem>
+          <SelectItem value="createdAt">Date</SelectItem>
         </SelectContent>
       </Select>
     </div>

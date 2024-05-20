@@ -1,21 +1,25 @@
 import DeleteButton from "@/components/DeleteButton";
 import ShareButton from "@/components/ShareButton";
-import SortButton from "@/components/SortButton";
+import OrderButton from "@/components/OrderButton";
 import UploadButton from "@/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { IDocument } from "@/interfaces/document-interface";
 import { instance } from "@/utils/axios";
 import { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
+import SortButton from "@/components/SortButton";
 
 export default function Home() {
   document.title = "Home - ShareFlow";
   const [documents, setDocuments] = useState<IDocument[]>([]);
+  const [orderValue, setOrderValue] = useState<string | null>(null);
   const [sortValue, setSortValue] = useState<string | null>(null);
   const fetchUserDocuments = async () => {
     try {
       const response = await instance.get(
-        `/document${sortValue ? `?orderBy=${sortValue}` : `?orderBy=asc`}`,
+        `/document${orderValue ? `?orderBy=${orderValue}` : `?orderBy=asc`}${
+          sortValue ? `&sortBy=${sortValue}` : `&sortBy=title`
+        }`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -34,15 +38,14 @@ export default function Home() {
 
   useEffect(() => {
     fetchUserDocuments();
-  }, [sortValue]);
-
-  console.log(sortValue);
+  }, [orderValue, sortValue]);
 
   return (
     <div className="p-6">
       <h1 className=" p-6 text-2xl font-bold text-gray-800">My Documents</h1>
       <div className="flex justify-end mb-6 gap-3">
         <SortButton setSortValue={setSortValue} />
+        <OrderButton setOrderValue={setOrderValue} />
         <UploadButton fetchUserDocuments={fetchUserDocuments} />
       </div>
 
