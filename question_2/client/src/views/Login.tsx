@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   document.title = "Login - ShareFlow";
@@ -8,10 +9,12 @@ export default function LoginPage() {
       <div className="flex gap-2 p-12 bg-white rounded-lg shadow-2xl">
         <div>
           <img className="w-28 h-10" src="/logo.png"></img>
-          <img
-            className="w-96 h-64"
-            src="https://img.freepik.com/free-vector/contact-us-concept-landing-page_52683-18636.jpg?t=st=1716212096~exp=1716215696~hmac=16746597643534ffd43a5368cd531e533344619f8e2df442739279719ff50d7a&w=900"
-          ></img>
+          <div className="h-full  flex justify-center items-center">
+            <img
+              className="w-96 h-64"
+              src="https://img.freepik.com/free-vector/contact-us-concept-landing-page_52683-18636.jpg?t=st=1716212096~exp=1716215696~hmac=16746597643534ffd43a5368cd531e533344619f8e2df442739279719ff50d7a&w=900"
+            ></img>
+          </div>
         </div>
         <div className="flex flex-col">
           <div className="mb-6">
@@ -50,7 +53,12 @@ export default function LoginPage() {
               </Button>
             </div>
             <div className="flex justify-center">
-              <p>Belum punya akun? Silahkan register</p>
+              <p>
+                Belum punya akun? Silahkan{" "}
+                <Link to={"/register"} className="text-blue-500 underline">
+                  Register.
+                </Link>
+              </p>
             </div>
           </form>
 
