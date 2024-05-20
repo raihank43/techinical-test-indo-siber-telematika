@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
+import { ImExit } from "react-icons/im";
 
 export default function NavbarComponent() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
-    <nav className="bg-white p-4 flex justify-between items-center shadow-2xl">
+    <nav className="bg-white p-4 flex justify-between items-center shadow-xl rounded-b-2xl">
       <div className="text-black">ShareFlow</div>
       <div>
         <Link to="/login" className="text-white mr-4">
@@ -13,8 +19,11 @@ export default function NavbarComponent() {
           Register
         </Link>
       </div>
-      <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Logout
+      <Button
+        onClick={handleLogout}
+        className="flex gap-2 items-center bg-transparent  hover:bg-yellow-200 hover:text-black text-yellow-500 font-bold py-2 px-4 rounded"
+      >
+        <ImExit /> Logout
       </Button>
     </nav>
   );
