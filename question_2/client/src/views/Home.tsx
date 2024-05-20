@@ -4,6 +4,7 @@ import { instance } from "@/utils/axios";
 import { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { FaSlideshare } from "react-icons/fa";
 export default function Home() {
   const [documents, setDocuments] = useState<IDocument[]>([]);
   const fetchUserDocuments = async () => {
@@ -26,8 +27,6 @@ export default function Home() {
   useEffect(() => {
     fetchUserDocuments();
   }, []);
-
-  console.log(documents, "<<<<<<<<<<<<<<");
 
   return (
     <div className="p-6">
@@ -103,6 +102,10 @@ export default function Home() {
                                   <Button className="text-white flex gap-2 hover:bg-red-700 bg-red-600">
                                     <MdDelete />
                                     Delete
+                                  </Button>
+                                  <Button className="bg-green-800">
+                                    <FaSlideshare />
+                                    Share
                                   </Button>
                                 </td>
                               </tr>
