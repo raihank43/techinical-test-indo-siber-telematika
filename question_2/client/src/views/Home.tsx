@@ -1,4 +1,5 @@
 import DeleteButton from "@/components/DeleteButton";
+import UploadButton from "@/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { IDocument } from "@/interfaces/document-interface";
 import { instance } from "@/utils/axios";
@@ -31,6 +32,11 @@ export default function Home() {
 
   return (
     <div className="p-6">
+      <h1 className=" p-6 text-2xl font-bold text-gray-800">My Documents</h1>
+      <div className="flex justify-end mb-6">
+        <UploadButton fetchUserDocuments={fetchUserDocuments} />
+      </div>
+
       <div className="flex flex-col rounded-lg shadow-lg">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
