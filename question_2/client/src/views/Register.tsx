@@ -9,7 +9,7 @@ export default function RegisterPage() {
   document.title = "Register - ShareFlow";
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [loginData, setloginData] = useState({
+  const [registerData, setRegisterData] = useState({
     email: "",
     name: "",
     password: "",
@@ -19,8 +19,8 @@ export default function RegisterPage() {
     const key = event.target.name;
     const value = event.target.value;
 
-    setloginData({
-      ...loginData,
+    setRegisterData({
+      ...registerData,
       [key]: value,
     });
   };
@@ -28,7 +28,7 @@ export default function RegisterPage() {
   const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await instance.post("/user", loginData);
+      const response = await instance.post("/user", registerData);
       console.log(response);
       if (response.status === 201) {
         toast({
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 onChange={handleChangeInput}
                 className="w-full px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
               />
             </div>
             <div>

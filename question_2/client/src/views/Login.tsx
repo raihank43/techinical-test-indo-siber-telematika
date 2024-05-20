@@ -29,12 +29,12 @@ export default function LoginPage() {
           <form className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-700">
-                Username
+                Email
               </label>
               <Input
                 className="w-full px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
               />
             </div>
             <div>
