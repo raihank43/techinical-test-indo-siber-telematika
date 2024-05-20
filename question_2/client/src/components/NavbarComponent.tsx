@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { ImExit } from "react-icons/im";
 
@@ -9,19 +9,15 @@ export default function NavbarComponent() {
     navigate("/login");
   };
   return (
-    <nav className="bg-white p-4 flex justify-between items-center shadow-xl rounded-b-2xl">
-      <div className="text-black">ShareFlow</div>
+    <nav className="bg-slate-100 p-4 flex justify-between items-center shadow-xl rounded-b-2xl">
+      <img src="/logo.png" className="w-32 ml-5" alt="logo" />
       <div>
-        <Link to="/login" className="text-white mr-4">
-          Login
-        </Link>
-        <Link to="/register" className="text-white">
-          Register
-        </Link>
+        <p className="font-bold italic"> Making Document Sharing a Breeze</p>
+     
       </div>
       <Button
         onClick={handleLogout}
-        className="flex gap-2 items-center bg-transparent  hover:bg-yellow-200 hover:text-black text-yellow-500 font-bold py-2 px-4 rounded"
+        className="flex gap-2 items-center bg-transparent  hover:bg-yellow-200 hover:text-black text-yellow-700 font-bold py-2 px-4 rounded"
       >
         <ImExit /> Logout
       </Button>
