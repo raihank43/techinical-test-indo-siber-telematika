@@ -6,6 +6,7 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 
 import { ISharedDocument } from "@/interfaces/shared-document-interface";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import convertTimestamp from "@/utils/convertTimestamp";
 
 export default function SharedDocument() {
   document.title = "Shared Document - ShareFlow";
@@ -97,7 +98,9 @@ export default function SharedDocument() {
                                   {sharedDocument.document.title}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                  {sharedDocument.document.createdAt}
+                                  {convertTimestamp(
+                                    sharedDocument.document.createdAt
+                                  )}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   {sharedDocument.document.docType}

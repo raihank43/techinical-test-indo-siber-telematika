@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import SortButton from "@/components/SortButton";
 import FilterByExtensionButton from "@/components/FilterByExtensionButton";
+import convertTimestamp from "@/utils/convertTimestamp";
 
 export default function Home() {
   document.title = "Home - ShareFlow";
@@ -113,7 +114,7 @@ export default function Home() {
                                   {document.title}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                  {document.createdAt}
+                                  {convertTimestamp(document.createdAt)}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   {document.docType}
