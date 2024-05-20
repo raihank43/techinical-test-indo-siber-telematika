@@ -25,7 +25,7 @@ Follow these steps to run this application:
 1. Clone this repository:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/raihank43/technical-test-ist.git
 ```
 
 2. Navigate to the question_2 directory:
