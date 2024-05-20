@@ -11,8 +11,13 @@ services:
     environment:
       SECRETKEY: "secretkey"
       EXPIRESIN: "60m"
-      CLOUDINARY_URL: "[YOUR_CLOUDINARY_URL]"
+      CLOUDINARY_URL: "cloudinary://848994188478294:KUC42lu6deWzYXlPu4JlOFxBkUg@dkrchzi4b"
       DATABASE_URL: "postgres://postgres:postgres@db:5432/document-management-system"
+
+  client:
+    build: ./client # path to your client app
+    ports:
+      - 8080:80 # change 8080 to any port you want to use on your host
 
   db:
     image: postgres
