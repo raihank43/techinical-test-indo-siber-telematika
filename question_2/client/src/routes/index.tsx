@@ -1,11 +1,16 @@
+import RootLayout from "@/layouts/RootLayout";
+import Home from "@/views/Home";
 import LoginPage from "@/views/Login";
 import RegisterPage from "@/views/Register";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+    loader: () => {
+      return localStorage.getItem("token") ? redirect("/") : null;
+    },
   },
   {
     path: "/register",
@@ -13,6 +18,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <div>Hello</div>,
+    element: <RootLayout />,
+    loader: () => {
+      return !localStorage.getItem("token") ? redirect("/login") : null;
+    },
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+    ],
   },
 ]);
