@@ -25,11 +25,12 @@ export default function RegisterPage() {
     });
   };
 
-  const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRegisterSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     try {
       const response = await instance.post("/user", registerData);
-      console.log(response);
       if (response.status === 201) {
         toast({
           title: "Registration Success!",
@@ -48,7 +49,6 @@ export default function RegisterPage() {
         } else if (Array.isArray(err.response.data.message)) {
           // Check if message is an array of strings
           (err.response.data.message as string[]).map((er: string) => {
-            // Rest of your code...
             toast({
               variant: "destructive",
               title: "Registration Failed.",
@@ -70,7 +70,7 @@ export default function RegisterPage() {
             <p className="text-gray-500 text-sm">Please register to continue</p>
           </div>
 
-          <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
+          <form className="flex flex-col gap-4" onSubmit={handleRegisterSubmit}>
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-700">
                 Email
