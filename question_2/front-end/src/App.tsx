@@ -1,20 +1,9 @@
-import { useState } from "react";
 import "./App.css";
-import { Button } from "@/components/ui/button";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <div>
-        <p className="">adasdasda</p>
-      </div>
-      <div>
-        <Button>Click me</Button>
-      </div>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
