@@ -36,6 +36,7 @@ export default function UploadButton({
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / (progressEvent.total ?? 0)
           );
+          console.log(percentCompleted);
           setProgress(percentCompleted);
         },
       });
@@ -84,7 +85,7 @@ export default function UploadButton({
               }
             }}
           />
-          <Progress value={progress} className="w-[60%]" />
+          <Progress value={progress} className="w-[100%]" />
           <label
             htmlFor="fileUpload"
             className="flex items-center gap-2 cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
