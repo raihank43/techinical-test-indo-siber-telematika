@@ -5,7 +5,6 @@ import { PrismaService } from 'src/prisma.service';
 import { Document, SharedDocument } from '@prisma/client';
 import { ISharedDocument } from 'src/interfaces/shared-document.interface';
 
-
 @Injectable()
 export class SharedDocumentService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -40,21 +39,18 @@ export class SharedDocumentService {
     });
 
     if (!document) {
-      return new HttpException('Document not found', 404);
+      throw new HttpException('Document not found', 404);
     }
 
     if (document.userId !== user.id) {
-      return new HttpException('You are not the owner of this document', 403);
+      throw new HttpException('You are not the owner of this document', 403);
     }
 
     if (
       document.id === Number(data.documentId) &&
       user.id === Number(data.targetUserId)
     ) {
-      return new HttpException(
-        'You cannot share a document with yourself',
-        400,
-      );
+      throw new HttpException('You cannot share a document with yourself', 400);
     }
 
     // if the document is already shared with the target user
@@ -66,7 +62,7 @@ export class SharedDocumentService {
     });
 
     if (isShared) {
-      return new HttpException(
+      throw new HttpException(
         'This document is already shared with the target user',
         400,
       );

@@ -1,11 +1,11 @@
 import DeleteButton from "@/components/DeleteButton";
+import ShareButton from "@/components/ShareButton";
 import UploadButton from "@/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { IDocument } from "@/interfaces/document-interface";
 import { instance } from "@/utils/axios";
 import { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
-import { FaSlideshare } from "react-icons/fa";
 export default function Home() {
   document.title = "Home - ShareFlow";
   const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -111,10 +111,7 @@ export default function Home() {
                                     id={document.id}
                                     fetchUserDocuments={fetchUserDocuments}
                                   />
-                                  <Button className="bg-green-800">
-                                    <FaSlideshare />
-                                    Share
-                                  </Button>
+                                  <ShareButton documentId={document.id} />
                                 </td>
                               </tr>
                             );
