@@ -1,11 +1,12 @@
+import DeleteButton from "@/components/DeleteButton";
 import { Button } from "@/components/ui/button";
 import { IDocument } from "@/interfaces/document-interface";
 import { instance } from "@/utils/axios";
 import { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import { FaSlideshare } from "react-icons/fa";
 export default function Home() {
+  document.title = "Home - ShareFlow";
   const [documents, setDocuments] = useState<IDocument[]>([]);
   const fetchUserDocuments = async () => {
     try {
@@ -99,10 +100,11 @@ export default function Home() {
                                     <FaCloudDownloadAlt />
                                     Download
                                   </Button>
-                                  <Button className="text-white flex gap-2 hover:bg-red-700 bg-red-600">
-                                    <MdDelete />
-                                    Delete
-                                  </Button>
+
+                                  <DeleteButton
+                                    id={document.id}
+                                    fetchUserDocuments={fetchUserDocuments}
+                                  />
                                   <Button className="bg-green-800">
                                     <FaSlideshare />
                                     Share
