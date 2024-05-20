@@ -2,6 +2,7 @@ import RootLayout from "@/layouts/RootLayout";
 import Home from "@/views/Home";
 import LoginPage from "@/views/Login";
 import RegisterPage from "@/views/Register";
+import SharedDocument from "@/views/SharedDocument";
 import { createBrowserRouter, redirect } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/shared-document",
+        element: <SharedDocument />,
       },
     ],
   },
